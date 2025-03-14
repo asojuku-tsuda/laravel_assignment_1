@@ -3,221 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スタイリッシュなアニメーション</title>
+    <title>未来的なWelcomeスクリーン</title>
     <style>
-        /* ベーススタイル */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #111;
+            background-color: #0c0c1e;
             color: #fff;
-            overflow-x: hidden;
+            overflow: hidden;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 6rem;
-            opacity: 0;
-            transform: translateY(-50px);
-            animation: fadeInDown 1s ease-out forwards;
-        }
-
-        h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        p.subtitle {
-            font-size: 1.5rem;
-            color: #aaa;
-            margin-bottom: 2rem;
-        }
-
-        /* カード要素 */
-        .cards {
+            position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            align-items: center;
+            z-index: 1;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
+        .welcome-card {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+            background: rgba(16, 18, 42, 0.7);
+            border-radius: 20px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            width: 300px;
-            cursor: pointer;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .card:nth-child(1) {
-            animation: fadeInUp 0.5s ease-out 0.2s forwards;
-        }
-
-        .card:nth-child(2) {
-            animation: fadeInUp 0.5s ease-out 0.4s forwards;
-        }
-
-        .card:nth-child(3) {
-            animation: fadeInUp 0.5s ease-out 0.6s forwards;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .icon {
-            transform: rotate(360deg) scale(1.2);
-        }
-
-        .card h2 {
-            margin-bottom: 1rem;
-            color: #4facfe;
-        }
-
-        .card p {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        /* ボタン */
-        .cta-button {
-            margin-top: 4rem;
+            border: 2px solid rgba(66, 130, 255, 0.5);
+            box-shadow: 0 0 30px rgba(66, 130, 255, 0.3);
+            padding: 40px;
             text-align: center;
-            opacity: 0;
-            animation: pulse 1s ease-out 1s forwards;
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
+            z-index: 2;
         }
 
-        button {
-            background: linear-gradient(45deg, #4facfe, #00f2fe);
-            border: none;
-            color: white;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border-radius: 50px;
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(66, 130, 255, 0.8);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards 0.5s;
+        }
+
+        .welcome-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #ccd6f6;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards 2s;
+            margin-top: 40px;
+        }
+
+        .btn-enter {
+            width: 220px;
+            height: 220px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
-        }
-
-        button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
             opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s forwards 1.5s, float 6s ease-in-out infinite 2s;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(66, 130, 255, 0.6);
+            margin: 20px auto;
         }
 
-        button:hover::after {
-            animation: ripple 1s ease-out;
+        .btn-enter img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            transition: all 0.3s ease;
         }
 
-        /* 背景アニメーション */
-        .background {
-            position: fixed;
+        .btn-enter:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(66, 130, 255, 0.8);
+        }
+
+        .btn-enter:after {
+            content: 'ENTER';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: rgba(16, 18, 42, 0.7);
+            color: white;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .particles {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            z-index: 0;
+        }
+
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(66, 130, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(66, 130, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+            z-index: 1;
         }
 
         .circle {
             position: absolute;
             border-radius: 50%;
-            background: linear-gradient(45deg, #4facfe33, #00f2fe33);
-            animation: float 15s infinite;
+            background: radial-gradient(circle, rgba(66, 130, 255, 0.5), rgba(66, 130, 255, 0));
+            animation: pulse 4s ease-in-out infinite;
+            z-index: 0;
+            opacity: 0.5;
         }
 
         .circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            top: 10%;
+            width: 400px;
+            height: 400px;
+            top: 20%;
             left: 10%;
             animation-delay: 0s;
         }
 
         .circle:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            top: 60%;
-            left: 70%;
-            animation-delay: -5s;
-            background: linear-gradient(45deg, #fd1d1d33, #833ab433);
+            width: 300px;
+            height: 300px;
+            bottom: 10%;
+            right: 20%;
+            animation-delay: 1s;
         }
 
         .circle:nth-child(3) {
             width: 200px;
             height: 200px;
             top: 40%;
-            left: 40%;
-            animation-delay: -10s;
-            background: linear-gradient(45deg, #fcb04533, #fd1d1d33);
+            right: 10%;
+            animation-delay: 2s;
         }
 
-        /* アニメーションキーフレーム */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotateX(2deg) rotateY(2deg);
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            50% {
+                transform: translateY(-20px) rotateX(-2deg) rotateY(-2deg);
             }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(100px);
-            }
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -225,164 +187,360 @@
         }
 
         @keyframes pulse {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            100% {
-                opacity: 1;
+            0%, 100% {
                 transform: scale(1);
-            }
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 1;
-            }
-            20% {
-                transform: scale(25, 25);
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: scale(40, 40);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
+                opacity: 0.5;
             }
             50% {
-                transform: translateY(-20px) rotate(180deg);
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+                top: -100%;
+            }
+            20%, 100% {
+                left: 100%;
+                top: 100%;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(66, 130, 255, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(110, 66, 255, 0.9);
+            }
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
             }
             100% {
-                transform: translateY(0) rotate(360deg);
+                background-position: 40px 40px;
             }
         }
 
-        /* スクロールアニメーション */
-        .scroll-animation {
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0c0c1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader-content {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .loader-spinner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 5px solid transparent;
+            border-top-color: #4282ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-spinner:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-top-color: #6e42ff;
+            animation-duration: 0.8s;
+            animation-direction: reverse;
+        }
+
+        .loader-spinner:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border-top-color: #42b4ff;
+            animation-duration: 0.6s;
+        }
+
+        .loader-text {
+            position: absolute;
+            top: 120%;
+            width: 100%;
+            text-align: center;
+            color: #4282ff;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hidden {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            visibility: hidden;
         }
 
-        .scroll-animation.active {
-            opacity: 1;
-            transform: translateY(0);
+        .flying-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
         }
 
-        /* レスポンシブデザイン */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
+        .flying-element {
+            position: absolute;
+            background: rgba(66, 130, 255, 0.2);
+            border-radius: 5px;
+            pointer-events: none;
+            animation: fly 15s linear infinite;
+            z-index: 0;
+        }
 
-            .cards {
-                flex-direction: column;
-                align-items: center;
+        @keyframes fly {
+            0% {
+                transform: translateX(-100vw) translateY(random(100)vh) rotate(0deg);
+                opacity: 0;
             }
-
-            .card {
-                width: 100%;
-                max-width: 300px;
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(100vw) translateY(random(100)vh) rotate(360deg);
+                opacity: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background">
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-spinner"></div>
+            <div class="loader-spinner"></div>
+            <div class="loader-text">LOADING...</div>
+        </div>
+    </div>
+
+    <div class="grid-background"></div>
+
+    <div class="circles">
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
     </div>
 
+    <div class="flying-elements" id="flyingElements"></div>
+
+    <div class="particles" id="particles"></div>
+
     <div class="container">
-        <header>
-            <h1>スタイリッシュな体験</h1>
-            <p class="subtitle">モダンなアニメーションとトランジション効果</p>
-        </header>
-
-        <div class="cards">
-            <div class="card">
-                <div class="icon">✨</div>
-                <h2>村上</h2>
-                <p>お転婆だがしっかり者という両極端な性格</p>
+        <div class="welcome-card">
+            <h1 class="welcome-title">WELCOME</h1>
+            <div class="btn-enter" id="enterButton">
+            <img src="{{ asset('img/ninjack.png') }}" alt="Enter" />
             </div>
-            <div class="card">
-                <div class="icon">🎨</div>
-                <h2>手嶋</h2>
-                <p>タンタンと仕事をこなし、どんな仕事も問題なくこなす</p>
-            </div>
-            <div class="card">
-                <div class="icon">🚀</div>
-                <h2>山下</h2>
-                <p>すべて柔軟に対応し、ハイパフォーマンスルーキー</p>
-            </div>
-        </div>
-
-        <div class="cta-button">
-            <button id="action-button">もっと見る</button>
-        </div>
-
-        <div class="scroll-section" style="margin-top: 10rem;">
-            <div class="scroll-animation">
-                <h2 style="text-align: center; margin-bottom: 2rem;">スクロールして発見する</h2>
-                <p style="text-align: center; max-width: 600px; margin: 0 auto; color: #aaa;">
-                    このページをスクロールすると、さらに多くの要素がアニメーションします。
-                    スクロールベースのアニメーションは、ユーザーエンゲージメントを高め、
-                    コンテンツの発見をより魅力的にします。
-                </p>
-            </div>
+            <p class="welcome-text">Laravelのゲートウェイへようこそ。<br>最先端のデジタル体験の世界への扉が今、開かれます。</p>
         </div>
     </div>
 
     <script>
-        // ボタンクリックアニメーション
-        document.getElementById('action-button').addEventListener('click', function() {
-            this.innerHTML = "読み込み中...";
-            this.style.background = "linear-gradient(45deg, #833ab4, #fd1d1d)";
+        // ローディング画面の制御
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // 動く背景要素の作成
+        function createFlyingElements() {
+            const container = document.getElementById('flyingElements');
+            const count = 15;
+
+            for (let i = 0; i < count; i++) {
+                const element = document.createElement('div');
+                element.classList.add('flying-element');
+
+                // ランダムなサイズと形
+                const size = Math.random() * 30 + 10;
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+
+                // ランダムな位置と角度
+                const yPos = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 10;
+                const rotation = Math.random() * 360;
+
+                element.style.top = `${yPos}%`;
+                element.style.animationDelay = `${delay}s`;
+                element.style.animationDuration = `${duration}s`;
+                element.style.transform = `rotate(${rotation}deg)`;
+
+                container.appendChild(element);
+            }
+        }
+
+        // パーティクルの作成
+        function createParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.getElementById('particles').appendChild(canvas);
+
+            const ctx = canvas.getContext('2d');
+            const particles = [];
+            const particleCount = 100;
+
+            // パーティクルクラス
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 2 - 1;
+                    this.speedY = Math.random() * 2 - 1;
+                    this.color = `rgba(${Math.random() * 100 + 100}, ${Math.random() * 100 + 100}, 255, ${Math.random() * 0.5 + 0.2})`;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (this.x > canvas.width || this.x < 0) {
+                        this.speedX = -this.speedX;
+                    }
+
+                    if (this.y > canvas.height || this.y < 0) {
+                        this.speedY = -this.speedY;
+                    }
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // パーティクルを初期化
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    // パーティクル間の線を描画
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(66, 130, 255, ${0.2 - distance/500})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // ウィンドウリサイズ時にキャンバスサイズを調整
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // カードの3D効果
+        function initCard3DEffect() {
+            const card = document.querySelector('.welcome-card');
+            const container = document.querySelector('.container');
+
+            container.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+
+            container.addEventListener('mouseenter', () => {
+                card.style.transition = 'none';
+            });
+
+            container.addEventListener('mouseleave', () => {
+                card.style.transition = 'all 0.5s ease';
+                card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+            });
+        }
+
+        // Enter 画像ボタンのイベント
+        document.getElementById('enterButton').addEventListener('click', () => {
+            // クリック時にボタン自体の効果
+            const button = document.getElementById('enterButton');
+            button.style.transform = 'scale(0.9)';
+            button.style.boxShadow = '0 0 50px rgba(110, 66, 255, 0.9)';
 
             setTimeout(() => {
-                this.innerHTML = "完了!";
-                this.style.background = "linear-gradient(45deg, #00c853, #69f0ae)";
-            }, 1500);
+                button.style.transform = 'scale(1.2)';
+
+                // カードの効果
+                const card = document.querySelector('.welcome-card');
+                card.style.transform = 'translateZ(100px) scale(1.1)';
+                card.style.boxShadow = '0 0 50px rgba(66, 130, 255, 0.8)';
+
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateZ(500px) scale(0.2)';
+
+                    setTimeout(() => {
+                        // ここに遷移先のコードを入れます
+                        alert('Welcome to the future experience!');
+                        location.reload();
+                    }, 1000);
+                }, 500);
+            }, 200);
         });
 
-        // スクロールアニメーション
-        const scrollElements = document.querySelectorAll('.scroll-animation');
-
-        const elementInView = (el, scrollOffset = 100) => {
-            const elementTop = el.getBoundingClientRect().top;
-            return (
-                elementTop <= (window.innerHeight || document.documentElement.clientHeight) - scrollOffset
-            );
+        // 初期化
+        window.onload = function() {
+            createFlyingElements();
+            createParticles();
+            initCard3DEffect();
         };
-
-        const displayScrollElement = (element) => {
-            element.classList.add('active');
-        };
-
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                if (elementInView(el, 100)) {
-                    displayScrollElement(el);
-                }
-            });
-        };
-
-        window.addEventListener('scroll', () => {
-            handleScrollAnimation();
-        });
-
-        // 初期表示用
-        handleScrollAnimation();
     </script>
 </body>
 </html>
